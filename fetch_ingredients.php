@@ -26,7 +26,7 @@ $conn->close();
 
 function getHealthEffectFromOpenRouter($ingredient) {
     $url = "https://openrouter.ai/api/v1/chat/completions";
-    $apiKey = "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";
+    $apiKey = "API Key";
 
     $data = [
         "model" => "openai/gpt-3.5-turbo",
