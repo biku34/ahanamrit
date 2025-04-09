@@ -221,7 +221,7 @@ const resultText = document.getElementById("resultText");
 const table = document.getElementById("resultTable");
 const tableBody = document.getElementById("tableBody");
 
-const OPENROUTER_API_KEY = "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";
+const OPENROUTER_API_KEY = "API Key";
 
 imageInput.addEventListener("change", async () => {
   const file = imageInput.files[0];
