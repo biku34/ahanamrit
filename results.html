@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🧬 Ingredient Health Effects</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #f2f2f2;
+      font-family: 'Inter', sans-serif;
+      padding: 40px;
+      text-align: center;
+    }
+    h1 {
+      color: #9b6bf5;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 10px;
+    }
+    th {
+      color: #c59bff;
+    }
+    .btn {
+      background: linear-gradient(135deg, #9b6bf5, #c59bff);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 22px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🍽️ Ingredients & Health Effects</h1>
+  <button class="btn" onclick="loadIngredients()">Load from Database</button>
+  <table id="resultTable" style="display: none;">
+    <thead>
+      <tr>
+        <th>Ingredient</th>
+        <th>Health Effect</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+
+<script>
+const OPENROUTER_API_KEY = "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";
+
+async function loadIngredients() {
+  const table = document.getElementById("resultTable");
+  const tbody = document.getElementById("tableBody");
+  tbody.innerHTML = "";
+  table.style.display = "none";
+
+  try {
+    const response = await fetch("http://localhost/fetch_ingredients.php"); // Update path if needed
+    const data = await response.json(); // [{ ingredient: "..." }, ...]
+
+    table.style.display = "table";
+
+    for (const item of data) {
+      const effect = await getHealthEffect(item.ingredient);
+
+      const row = document.createElement("tr");
+
+      const nameCell = document.createElement("td");
+      nameCell.textContent = item.ingredient;
+
+      const effectCell = document.createElement("td");
+      effectCell.textContent = effect;
+
+      row.appendChild(nameCell);
+      row.appendChild(effectCell);
+      tbody.appendChild(row);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+async function getHealthEffect(ingredient) {
+  try {
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "google/gemini-pro",
+        messages: [{
+          role: "user",
+          content: `Give a one-line summary of health effects (positive or negative) of the food ingredient: "${ingredient}".`
+        }]
+      }),
+    });
+
+    const data = await response.json();
+    return data?.choices?.[0]?.message?.content || "No info found.";
+  } catch (error) {
+    console.error("Gemini API Error:", error);
+    return "Error getting effect.";
+  }
+}
+</script>
+</body>
+</html>

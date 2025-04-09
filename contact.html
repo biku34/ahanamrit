@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact - Ahan-Amrit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --text: #f2f2f2;
+      --muted: #999;
+      --accent: #9b6bf5;
+      --accent-light: #c59bff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 5%;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 22px;
+    }
+
+    .logo span {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 40px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: var(--muted);
+      margin-bottom: 30px;
+      max-width: 500px;
+    }
+
+    form {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    input, textarea {
+      padding: 12px 16px;
+      border: 1px solid var(--muted);
+      border-radius: 8px;
+      background-color: #1a1a1a;
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 22px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .sphere {
+      position: absolute;
+      bottom: 10%;
+      left: 5%;
+      width: 200px;
+      height: 200px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/e/ea/Wireframe_3D_Torus_Knot.svg') no-repeat center;
+      background-size: contain;
+      opacity: 0.2;
+      animation: floaty 6s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Ahan-Amrit <span>by Bikram Sadhukhan</span></div>
+    <button onclick="window.location.href='index.html'" class="btn">Back to Scanner</button>
+  </header>
+
+  <main>
+    <h1>Contact Us</h1>
+    <p>Have feedback, questions, or partnership ideas? We'd love to hear from you!</p>
+
+    <form action="mailto:your@email.com" method="POST" enctype="text/plain">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" placeholder="Your Message..." required></textarea>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+
+    <div class="sphere"></div>
+  </main>
+
+  <footer>
+    © 2025 Ahan-Amrit. All rights reserved.
+  </footer>
+
+</body>
+</html>
